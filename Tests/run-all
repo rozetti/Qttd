@@ -1,0 +1,25 @@
+PROJECT_ROOT=.
+BIN_PATH=../build-test-bin
+LOG_FILENAME=tests.log
+TEMP_LOG_FILENAME=$LOG_FILENAME.temp
+
+for d in $(find $PROJECT_ROOT/*Tests -maxdepth 1 -type d); do
+for pro in $d/*.pro; do
+echo "Building project $pro";
+#todo crz: build and check result
+done
+done
+
+if [ -f $LOG_FILENAME ]; then
+  rm $LOG_FILENAME
+fi
+
+for f in $BIN_PATH/*; 
+do $f > $TEMP_LOG_FILENAME;
+cat $TEMP_LOG_FILENAME >> $LOG_FILENAME
+
+ERRORS=$(grep -ic "fail!" $TEMP_LOG_FILENAME)
+if [ "$ERRORS" -ne '0' ]; then
+  echo "$f failed";
+fi
+done
