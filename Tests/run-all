@@ -2,7 +2,7 @@
 
 PROJECT_ROOT=.
 BIN_PATH=../../build-tests-bin
-LOG_FILENAME=tests.log
+LOG_FILENAME=~/tests.log
 TEMP_LOG_FILENAME=$LOG_FILENAME.temp
 MAKE_FLAGS=-j8
 

@@ -1,4 +1,4 @@
-EPG_PATH = ../../prod_epg
+SOURCE_PATH = ../../src
 TEST_NAME = $${SUT_CLASS_NAME}Tests
 TEST_FRAMEWORK_PATH = ../test_framework
 BIN_PATH = ../../../build-tests-bin
@@ -15,13 +15,13 @@ SOURCES += $$TEST_FRAMEWORK_PATH/gmock-gtest-all.cc
 SOURCES += $${TEST_NAME}.cpp
 
 INCLUDEPATH += $$TEST_FRAMEWORK_PATH
-INCLUDEPATH += $$EPG_PATH/$$SUT_PATH
-INCLUDEPATH += $$EPG_PATH/core_services/src/api_providers
-INCLUDEPATH += $$EPG_PATH/core_services/src/data_model
-INCLUDEPATH += $$EPG_PATH/core_services/src/data_model/data_types
-INCLUDEPATH += $$EPG_PATH/core_services/src/data_model/interfaces
-INCLUDEPATH += $$EPG_PATH/core_services/src/api_providers
-INCLUDEPATH += $$EPG_PATH/core_services/src/search_model
+INCLUDEPATH += $$SOURCE_PATH/$$SUT_PATH
+INCLUDEPATH += $$SOURCE_PATH/core_services/src/api_providers
+INCLUDEPATH += $$SOURCE_PATH/core_services/src/data_model
+INCLUDEPATH += $$SOURCE_PATH/core_services/src/data_model/data_types
+INCLUDEPATH += $$SOURCE_PATH/core_services/src/data_model/interfaces
+INCLUDEPATH += $$SOURCE_PATH/core_services/src/api_providers
+INCLUDEPATH += $$SOURCE_PATH/core_services/src/search_model
 
 DESTDIR = $$BIN_PATH
 OBJECTS_DIR = $${BUILD_PATH}
@@ -30,8 +30,8 @@ RCC_DIR = $${BUILD_PATH}
 
 TARGET = $$TEST_NAME
 
-SOURCES += $$EPG_PATH/$$SUT_PATH/$${SUT_CLASS_NAME}.cpp
-HEADERS += $$EPG_PATH/$$SUT_PATH/$${SUT_CLASS_NAME}.h
+SOURCES += $$SOURCE_PATH/$$SUT_PATH/$${SUT_CLASS_NAME}.cpp
+HEADERS += $$SOURCE_PATH/$$SUT_PATH/$${SUT_CLASS_NAME}.h
 
 message($$SOURCES)
 message($$HEADERS)
