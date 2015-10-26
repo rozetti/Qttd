@@ -1,25 +1,43 @@
+#!/bin/bash
+
 PROJECT_ROOT=.
-BIN_PATH=../build-test-bin
+BIN_PATH=../../build-tests-bin
 LOG_FILENAME=tests.log
 TEMP_LOG_FILENAME=$LOG_FILENAME.temp
+MAKE_FLAGS=-j8
 
 for d in $(find $PROJECT_ROOT/*Tests -maxdepth 1 -type d); do
 for pro in $d/*.pro; do
-echo "Building project $pro";
+echo "Potentially running qmake on $pro";
 #todo crz: build and check result
 done
+done
+
+for d in $(find ./build-*-Debug -maxdepth 1 -type d ); do
+  echo "Running makefile in $d";
+
+  pushd $d;
+  make $MAKE_FLAGS;
+  popd;
 done
 
 if [ -f $LOG_FILENAME ]; then
   rm $LOG_FILENAME
 fi
 
-for f in $BIN_PATH/*; 
-do $f > $TEMP_LOG_FILENAME;
+for f in $BIN_PATH/*; do 
+echo "Running test case $f";
+
+$f > $TEMP_LOG_FILENAME
+
 cat $TEMP_LOG_FILENAME >> $LOG_FILENAME
 
-ERRORS=$(grep -ic "fail!" $TEMP_LOG_FILENAME)
+ERRORS=$(grep -c "FAIL!" $TEMP_LOG_FILENAME)
 if [ "$ERRORS" -ne '0' ]; then
-  echo "$f failed";
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! $f failed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 fi
 done
+
+if [ -f $TEMP_LOG_FILENAME ]; then
+  rm $TEMP_LOG_FILENAME
+fi
