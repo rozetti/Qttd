@@ -18,17 +18,20 @@ private Q_SLOTS:
 
     void getStartTime_returnsStartTime()
     {
-        auto expected = 1729 - 42;
+        const long start = 42;
+        const long end = 1729;
+
+        auto expected = end - start;
 
         SomeMock mock;
-        EXPECT_CALL(mock, getStartTime()).WillOnce(Return(42));
-        EXPECT_CALL(mock, getEndTime()).WillOnce(Return(1729));
+        EXPECT_CALL(mock, getStartTime()).WillOnce(Return(start));
+        EXPECT_CALL(mock, getEndTime()).WillOnce(Return(end));
 
         ExampleClass sut(mock);
 
         auto actual = sut.getDuration();
 
-        QCOMPARE(actual, expected);
+        QCOMPARE((long)actual, (long)expected);
     }
 };
 
